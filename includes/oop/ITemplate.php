@@ -55,6 +55,21 @@ interface ITemplate{
 	 * @return 返回第一行第一列的值
 	 */
 	public function batchExecute($sql,$array=array());
+	
+	/**
+	 * 开启事务
+	 */
+	public function beginTransaction();
+
+	/**
+	 * 提交事务
+	 */
+	public function commitTransaction();
+	
+	/**
+	 * 回滚事务
+	 */
+	public function rollBack();
 
 
 
