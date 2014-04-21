@@ -23,7 +23,7 @@ $result=$model->getUsers();
 $end= getMilliseconds();
 $time=$end-$start;
 echo "consum time is $time<br>";
-die;
+
 $params=array();
 $user=new MUserDO();
 for($i=0;$i<10;$i++){
