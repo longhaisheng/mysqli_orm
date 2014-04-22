@@ -274,7 +274,7 @@ class cls_mysqli {
 		$metadata = $stmt->result_metadata();
 		$field_list = array();
 		while ($field = $metadata->fetch_field()) {
-			$field_list[] = $field->name;
+			$field_list[] = strtolower($field->name);
 		}
 		return $field_list;
 	}
