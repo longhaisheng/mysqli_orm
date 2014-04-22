@@ -85,34 +85,6 @@ class cls_mysqli {
 	/**
 	 * @param $sql "insert user(name,pwd) values (?,?)"
 	 * @param array $batch_params (array(array('username1','password1'),array('username2','password2')......))
-	 * @param int $batch_num 不见意超过50
-	 * @deprecated
-	 * @see batchExecutes
-	 */
-	public function batchExecute($sql, $batch_params = array(), $batch_num = 20) {
-		if ($batch_params && is_array($batch_params)) {
-			$count = count($batch_params);
-			$i = 0;
-			foreach ($batch_params as $param) {
-				$i++;
-				if ($i % $batch_num == 0 || $i = $count) {
-					$this->begin();
-				}
-				$stmt=$this->executeQuery($sql, $param);
-				if ($i % $batch_num == 0 || $i = $count) {
-					$this->commit();
-					if($stmt!=null){
-						$stmt->close();
-					}
-				}
-			}
-			return $count;
-		}
-	}
-
-	/**
-	 * @param $sql "insert user(name,pwd) values (?,?)"
-	 * @param array $batch_params (array(array('username1','password1'),array('username2','password2')......))
 	 * @param int $batch_num 不见意超过50,默认为20
 	 * @return 总共受影响行数
 	 */
