@@ -2,7 +2,7 @@
 header("Content-Type: text/html; charset=utf-8");
 require(dirname(__FILE__) . '/includes/init.php');
 require(dirname(__FILE__) . '/includes/oop/ITemplate.php');
-require(dirname(__FILE__) . '/includes/domain/MUserDO.php');
+require(dirname(__FILE__) . '/includes/domain/UserDO.php');
 require(dirname(__FILE__) . '/includes/oop/MysqliTemplate.php');
 
 function getMilliseconds()
@@ -17,15 +17,15 @@ function getMilliseconds()
 
 
 $start= getMilliseconds();
-$model= new MuserModel();
+$model= new UserModel();
 $result=$model->getUsers();
-//print_r($result);
+print_r($result);
 $end= getMilliseconds();
 $time=$end-$start;
 echo "consum time is $time<br>";
 
 $params=array();
-$user=new MUserDO();
+$user=new UserDO();
 for($i=0;$i<10;$i++){
 	$user->setPassWord("passWord".$i);
 	$user->setIsDelete(0);
@@ -36,13 +36,13 @@ for($i=0;$i<10;$i++){
 $count=$model->batchInsert($params);
 echo "batch_insert is $count";
 
-$user=new MUserDO();
+$user=new UserDO();
 $user->setId(1);
 echo "queryObject id is 1 <br>";
 print_r($model->getOneUser($user));
 echo "<br>+++++++++++++++++++++++++++<br>";
 
-$user=new MUserDO();
+$user=new UserDO();
 $user->setPassWord("passWord9");
 $user->setIsDelete(0);
 $user->setUserName("userName9");
@@ -55,14 +55,14 @@ echo "<br>queryById id is 2 <br>";
 print_r($model->getUserById(2));
 echo "<br>+++++++++++++++++++++++++++<br>";
 
-$user=new MUserDO();
+$user=new UserDO();
 $user->setNewUserName("userName_new");
 $user->setUserName("userName");
 $result=$model->DynamicUpdate($user);
 echo "<br>DynamicUpdate result:$result<br>";
 echo "+++++++++++++++++++++++++++<br>";
 
-$user=new MUserDO();
+$user=new UserDO();
 $user->setId(2);
 $user->setNewUserName("userName_new_1");
 $result=$model->updateById($user);

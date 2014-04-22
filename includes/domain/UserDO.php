@@ -1,5 +1,5 @@
 <?php
-class MUserDO{
+class UserDO{
 
 	private $id;
 	

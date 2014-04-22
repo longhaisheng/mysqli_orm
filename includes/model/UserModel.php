@@ -1,11 +1,11 @@
 <?php
-class MuserModel extends MysqliTemplate{
+class UserModel extends MysqliTemplate{
 
 	private $resultMap=array("id"=>'id',"user_name"=>'userName',
 							"password"=>'passWord',"address_one"=>"addressOne",
-							"IS_DELETE"=>'isDelete',"gmt_create"=>'gmtCreate',"gmt_modified"=>'gmtModified','class'=>'MUserDO');
+							"IS_DELETE"=>'isDelete',"gmt_create"=>'gmtCreate',"gmt_modified"=>'gmtModified','class'=>'UserDO');
 
-	private $select_files=" id,user_name,password,address_one,IS_DELETE,gmt_create,gmt_modified ";
+	private $select_files=" id,user_name,password,address_one,is_delete,gmt_create,gmt_modified ";
 
 	public function __construct() {
 		parent::__construct();
@@ -16,12 +16,12 @@ class MuserModel extends MysqliTemplate{
 		$sql="select ".$this->select_files." from user  order by id desc";
 		return $this->queryForList($sql);
 	}
-	public  function getOneUser(MUserDO $user){
+	public  function getOneUser(UserDO $user){
 		$sql="select ".$this->select_files." from user where id=#id# ";
 		return $this->queryForList($sql, $user);
 	}
 
-	public  function getUserCount(MUserDO $user){
+	public  function getUserCount(UserDO $user){
 		$sql="select count(id) from user where id=#id# ";
 		return $this->getColumn($sql, $user);
 	}
@@ -35,12 +35,12 @@ class MuserModel extends MysqliTemplate{
 	 * 根据数组参数查询返回user对象
 	 * @param array $params 参数key为id,pwd
 	 */
-	public function getUsersWithArray($params=array()){
+	public function getUsersWithArray(array $params=array()){
 		$sql="select ".$this->select_files." from  user where id=#ID#  and password=#pwd# and id >0 ";
 		return $this->queryForObject($sql, $params);
 	}
 
-	public function insert(MUserDO $user){
+	public function insert(UserDO $user){
 		$sql="insert INTO user (password,user_name,address_one,is_delete,gmt_create,gmt_modified)
 		values(#passWord#,#userName#,#addressOne#,#isDelete#,now(),now() )";
 		return $this->save($sql, $user);
@@ -48,7 +48,7 @@ class MuserModel extends MysqliTemplate{
 
 	/**
 	 * 批量插入user
-	 * @param array $params 数组中元素为 MUserDO 对象
+	 * @param array $params 数组中元素为 UserDO 对象
 	 */
 	public function batchInsert($params=array()){
 		$sql="insert INTO user (password,user_name,address_one,is_delete,gmt_create,gmt_modified)
@@ -56,21 +56,21 @@ class MuserModel extends MysqliTemplate{
 		return $this->batchExecute($sql, $params);
 	}
 
-	public function DynamicUpdate(MUserDO $user){
+	public function DynamicUpdate(UserDO $user){
 		$sql=$this->BuildUpdate($user);
 		$where=" where id>0 and ";
 		$sql =$sql.$this->bulidWhere($user,$where);
 		return $this->update($sql,$user);
 	}
 
-	public function updateById(MUserDO $user){
+	public function updateById(UserDO $user){
 		$sql=$this->BuildUpdate($user);
 		$where=" where id=#id# ";
 		$sql =$sql.$where;
 		return $this->update($sql,$user);
 	}
 
-	private function BuildUpdate(MUserDO $b){//取update语句 where 字符串前面的部分
+	private function BuildUpdate(UserDO $b){//取update语句 where 字符串前面的部分
 		$build_update_sql="update user set ";
 
 		$dynamic="";
@@ -106,7 +106,7 @@ class MuserModel extends MysqliTemplate{
 	 * @param string $where 可以包含 'where'字符串，可以以'and' | 'or' 结尾
 	 * @return string
 	 */
-	private function bulidWhere(MUserDO $b,$where=''){
+	private function bulidWhere(UserDO $b,$where=''){
 		$whereField="";
 		if(parent::isNotNull($b->getUserName())){
 			$whereField .=" and user_name=#userName#";
