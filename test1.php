@@ -24,7 +24,7 @@ $return_user=$model->getOneUser($user);
 
 //get Object by primary key:
 $model= new UserModel();
-$result=$model->getUserById(1)
+$result=$model->getUserById(1);
 
 //DynamicUpdate Object:
 $model= new UserModel();
@@ -42,7 +42,7 @@ $result=$model->updateById($queryDO);
 
 //query Object with array params:
 $model= new UserModel();
-$result=$model->getUsersWithArray(array('id'=>1,'pwd'=>'pwd'))
+$result=$model->getUsersWithArray(array('id'=>1,'pwd'=>'pwd'));
 
 //get count with Object params:
 $model= new UserModel();
